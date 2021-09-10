@@ -1,12 +1,16 @@
 package eu.tutorials.customdialog
 
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
+import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,10 +36,20 @@ class MainActivity : AppCompatActivity() {
              * Here we have handled onClick of Alert Dialog Button.
              */
             val btnAlertDialog: Button = findViewById(R.id.btn_alert_dialog)
-            btnAlertDialog.setOnClickListener { view ->
+            btnAlertDialog.setOnClickListener {
 
                 //Launch Alert Dialog
                 alertDialogFunction()
+            }
+
+            /**
+             * Here we have handled onClick of Custom Dialog Button.
+             */
+            val btnCustomDialog:Button = findViewById(R.id.btn_custom_dialog)
+            btnCustomDialog.setOnClickListener {
+
+                //Launch Custom Dialog
+                customDialogFunction()
             }
     }
 
@@ -74,5 +88,26 @@ class MainActivity : AppCompatActivity() {
         // Set other dialog properties
         alertDialog.setCancelable(false) // Will not allow user to cancel after clicking on remaining screen area.
         alertDialog.show()  // show the dialog to UI
+    }
+
+
+    /**
+     * Method is used to show the Custom Dialog.
+     */
+    private fun customDialogFunction() {
+        val customDialog = Dialog(this)
+        /*Set the screen content from a layout resource.
+    The resource will be inflated, adding all top-level views to the screen.*/
+        customDialog.setContentView(R.layout.dialog_custom)
+        customDialog.findViewById<TextView>(R.id.tv_submit).setOnClickListener {
+            Toast.makeText(applicationContext, "clicked submit", Toast.LENGTH_LONG).show()
+            customDialog.dismiss() // Dialog will be dismissed
+        }
+        customDialog.findViewById<TextView>(R.id.tv_cancel).setOnClickListener {
+            Toast.makeText(applicationContext, "clicked cancel", Toast.LENGTH_LONG).show()
+            customDialog.dismiss()
+        }
+        //Start the dialog and display it on screen.
+        customDialog.show()
     }
 }
