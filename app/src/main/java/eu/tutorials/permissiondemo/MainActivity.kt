@@ -13,17 +13,32 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
-    private val cameraResultLauncher:ActivityResultLauncher<String> =
+    /**
+    Todo 1: This time we creat the Activity result launcher of type Array<String>
+     */
+    private val cameraAndLocationResultLauncher:ActivityResultLauncher<Array<String>> =
         registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted ->
-            if (isGranted) {
-                Toast.makeText(this, "Permission granted for camera.", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(this, "Permission denied for camera.", Toast.LENGTH_LONG).show()
+            ActivityResultContracts.RequestMultiplePermissions()
+        ){permissions->
+            /**
+            Here it returns a Map of permission name as key with boolean as value
+            Todo 2: We loop through the map to get the value we need which is the boolean
+            value
+             */
+            permissions.entries.forEach{
+                val permissionName =it.key
+                val isGranted =it.value
+//Todo 3: if it is granted then we show its granted
+                if (isGranted) {
+                    Toast.makeText(this, "Permission granted for location and camera.", Toast.LENGTH_LONG)
+                        .show()
+                } else {
+//Todo 4: if not then we show a denied message
+                    Toast.makeText(this, "Permission denied for location and camera.", Toast.LENGTH_LONG)
+                        .show()
+                }
             }
         }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -35,13 +50,16 @@ class MainActivity : AppCompatActivity() {
                     Manifest.permission.CAMERA
                 )
             ) {
+                /**
+                If the permission has been denied do not ask for the permission again, only
+                let the user know that the feature that requires the camera will not be available because the permission is denied
+                 */
                showRationaleDialog(" Permission Demo requires camera access",
                    "Camera cannot be used because Camera access is denied")
             } else {
-                // You can directly ask for the permission.
-                // The registered ActivityResultCallback gets the result of this request.
-                cameraResultLauncher.launch(
-                    Manifest.permission.CAMERA
+                //Todo: We launch array of permissions that we need
+                cameraAndLocationResultLauncher.launch(
+                    arrayOf(Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION)
                 )
 
             }
