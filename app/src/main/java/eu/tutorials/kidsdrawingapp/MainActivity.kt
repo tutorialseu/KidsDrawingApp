@@ -2,9 +2,12 @@ package eu.tutorials.kidsdrawingapp
 
 import android.Manifest
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -20,7 +23,22 @@ class MainActivity : AppCompatActivity() {
     private var mImageButtonCurrentPaint: ImageButton? =
         null // A variable for current color is picked from color pallet.
 
-    /** Todo 1: create an ActivityResultLauncher with MultiplePermissions since we are requesting
+
+
+
+//Todo 2: create an activity result launcher to open an intent
+    val openGalleryLauncher:ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
+    //Todo 3: get the returned result from the lambda and check the resultcode and the data returned
+    if (result.resultCode == RESULT_OK && result.data != null){
+            //process the data
+                //Todo 4 if the data is not null reference the imageView from the layout
+            val imageBackground:ImageView = findViewById(R.id.iv_background)
+        //Todo 5: set the imageuri received
+            imageBackground.setImageURI(result.data?.data)
+        }
+    }
+
+    /** create an ActivityResultLauncher with MultiplePermissions since we are requesting
      * both read and write
      */
     val requestPermission: ActivityResultLauncher<Array<String>> =
@@ -28,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             permissions.entries.forEach {
                 val perMissionName = it.key
                 val isGranted = it.value
-                //Todo 2: if permission is granted show a toast and perform operation
+                //if permission is granted show a toast and perform operation
                 if (isGranted ) {
                     Toast.makeText(
                         this@MainActivity,
@@ -36,8 +54,12 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                     ).show()
                     //perform operation
+                    //Todo 1: create an intent to pick image from external storage
+                    val pickIntent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                    //Todo 6: using the intent launcher created above launch the pick intent
+                    openGalleryLauncher.launch(pickIntent)
                 } else {
-            //Todo 3: Displaying another toast if permission is not granted and this time focus on
+            //Displaying another toast if permission is not granted and this time focus on
             //    Read external storage
                 if (perMissionName == Manifest.permission.READ_EXTERNAL_STORAGE)
                     Toast.makeText(
@@ -49,6 +71,8 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,21 +151,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//Todo 4: create a method to requestStorage permission
+//create a method to requestStorage permission
     private fun requestStoragePermission(){
-    //Todo 5: Check if the permission was denied and show rationale
+    // Check if the permission was denied and show rationale
         if (
             ActivityCompat.shouldShowRequestPermissionRationale(
                 this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)
         ){
-            //Todo 8: call the rationale dialog to tell the user why they need to allow permission request
+            //call the rationale dialog to tell the user why they need to allow permission request
             showRationaleDialog("Kids Drawing App","Kids Drawing App " +
                     "needs to Access Your External Storage")
         }
         else {
             // You can directly ask for the permission.
-            // Todo 6: if it has not been denied then request for permission
+            //if it has not been denied then request for permission
                 //  The registered ActivityResultCallback gets the result of this request.
             requestPermission.launch(
                 arrayOf(
@@ -152,7 +176,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-    /** Todo 7: create rationale dialog
+    /**  create rationale dialog
      * Shows rationale dialog for displaying why the app needs permission
      * Only shown if the user has denied the permission request previously
      */
