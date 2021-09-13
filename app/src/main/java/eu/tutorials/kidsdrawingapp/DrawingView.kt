@@ -94,8 +94,8 @@ class DrawingView(context: Context,attrs:AttributeSet): View(context,attrs) {
         }
 
         if (!mDrawPath!!.isEmpty) {
-            mDrawPaint!!.strokeWidth = mDrawPath!!.brushThickness
-            mDrawPaint!!.color = mDrawPath!!.color
+            mDrawPaint?.strokeWidth = mDrawPath!!.brushThickness
+            mDrawPaint?.color = mDrawPath!!.color
             canvas.drawPath(mDrawPath!!, mDrawPaint!!)
         }
     }
@@ -110,18 +110,18 @@ class DrawingView(context: Context,attrs:AttributeSet): View(context,attrs) {
 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                mDrawPath!!.color = color
-                mDrawPath!!.brushThickness = mBrushSize
+                mDrawPath?.color = color
+                mDrawPath?.brushThickness = mBrushSize
 
-                mDrawPath!!.reset() // Clear any lines and curves from the path, making it empty.
-                mDrawPath!!.moveTo(
+                mDrawPath?.reset() // Clear any lines and curves from the path, making it empty.
+                mDrawPath?.moveTo(
                     touchX,
                     touchY
                 ) // Set the beginning of the next contour to the point (x,y).
             }
 
             MotionEvent.ACTION_MOVE -> {
-                mDrawPath!!.lineTo(
+                mDrawPath?.lineTo(
                     touchX,
                     touchY
                 ) // Add a line from the last point to the specified point (x,y).
@@ -150,7 +150,7 @@ class DrawingView(context: Context,attrs:AttributeSet): View(context,attrs) {
             TypedValue.COMPLEX_UNIT_DIP, newSize,
             resources.displayMetrics
         )
-        mDrawPaint!!.strokeWidth = mBrushSize
+        mDrawPaint?.strokeWidth = mBrushSize
     }
 
     /**
@@ -161,7 +161,7 @@ class DrawingView(context: Context,attrs:AttributeSet): View(context,attrs) {
      */
     fun setColor(newColor: String) {
         color = Color.parseColor(newColor)
-        mDrawPaint!!.color = color
+        mDrawPaint?.color = color
     }
     internal inner class CustomPath(var color:Int,var brushThickness:Float):Path()
 }
