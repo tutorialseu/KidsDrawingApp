@@ -20,36 +20,6 @@ class MainActivity : AppCompatActivity() {
     private var mImageButtonCurrentPaint: ImageButton? =
         null // A variable for current color is picked from color pallet.
 
-    /** Todo 1: create an ActivityResultLauncher with MultiplePermissions since we are requesting
-     * both read and write
-     */
-    val requestPermission: ActivityResultLauncher<Array<String>> =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            permissions.entries.forEach {
-                val perMissionName = it.key
-                val isGranted = it.value
-                //Todo 2: if permission is granted show a toast and perform operation
-                if (isGranted ) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Permission granted now you can read the storage files.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    //perform operation
-                } else {
-            //Todo 3: Displaying another toast if permission is not granted and this time focus on
-            //    Read external storage
-                if (perMissionName == Manifest.permission.READ_EXTERNAL_STORAGE)
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Oops you just denied the permission.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -66,10 +36,6 @@ class MainActivity : AppCompatActivity() {
         )
         ibBrush.setOnClickListener {
             showBrushSizeChooserDialog()
-        }
-        val ibGallery: ImageButton = findViewById(R.id.ib_gallery)
-        ibGallery.setOnClickListener {
-            requestStoragePermission()
         }
     }
 
@@ -125,48 +91,6 @@ class MainActivity : AppCompatActivity() {
             //Current view is updated with selected view in the form of ImageButton.
             mImageButtonCurrentPaint = view
         }
-    }
-
-//Todo 4: create a method to requestStorage permission
-    private fun requestStoragePermission(){
-    //Todo 5: Check if the permission was denied and show rationale
-        if (
-            ActivityCompat.shouldShowRequestPermissionRationale(
-                this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)
-        ){
-            //Todo 8: call the rationale dialog to tell the user why they need to allow permission request
-            showRationaleDialog("Kids Drawing App","Kids Drawing App " +
-                    "needs to Access Your External Storage")
-        }
-        else {
-            // You can directly ask for the permission.
-            // Todo 6: if it has not been denied then request for permission
-                //  The registered ActivityResultCallback gets the result of this request.
-            requestPermission.launch(
-                arrayOf(
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
-            )
-        }
-
-    }
-    /** Todo 7: create rationale dialog
-     * Shows rationale dialog for displaying why the app needs permission
-     * Only shown if the user has denied the permission request previously
-     */
-    private fun showRationaleDialog(
-        title: String,
-        message: String,
-    ) {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle(title)
-            .setMessage(message)
-            .setPositiveButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
-        builder.create().show()
     }
 
 }
