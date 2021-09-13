@@ -28,10 +28,9 @@ import java.io.FileOutputStream
 
 class MainActivity : AppCompatActivity() {
     private var drawingView: DrawingView? = null
-    private var mImageButtonCurrentPaint: ImageButton? =
-        null // A variable for current color is picked from color pallet.
+    private var mImageButtonCurrentPaint: ImageButton? = null // A variable for current color is picked from color pallet.
 
-
+    var customProgressDialog: Dialog? = null
 
 
 //Todo 2: create an activity result launcher to open an intent
@@ -114,6 +113,7 @@ class MainActivity : AppCompatActivity() {
         ibSave.setOnClickListener{
                //check if permission is allowed
             if (isReadStorageAllowed()){
+                showProgressDialog()
              //launch a coroutine block
                 lifecycleScope.launch{
                //reference the frame layout
@@ -314,6 +314,7 @@ class MainActivity : AppCompatActivity() {
                     result = f.absolutePath // The file absolute path is return as a result.
                    //We switch from io to ui thread to show a toast
                     runOnUiThread {
+                        cancelProgressDialog()
                         if (!result.isEmpty()) {
                             Toast.makeText(
                                 this@MainActivity,
@@ -337,4 +338,27 @@ class MainActivity : AppCompatActivity() {
         return result
     }
 
+    /**
+     * Method is used to show the Custom Progress Dialog.
+     */
+    private fun showProgressDialog() {
+        customProgressDialog = Dialog(this@MainActivity)
+
+        /*Set the screen content from a layout resource.
+        The resource will be inflated, adding all top-level views to the screen.*/
+        customProgressDialog?.setContentView(R.layout.dialog_custom_progress)
+
+        //Start the dialog and display it on screen.
+        customProgressDialog?.show()
+    }
+
+    /**
+     * This function is used to dismiss the progress dialog if it is visible to user.
+     */
+    private fun cancelProgressDialog() {
+        if (customProgressDialog != null) {
+            customProgressDialog?.dismiss()
+            customProgressDialog = null
+        }
+    }
 }
