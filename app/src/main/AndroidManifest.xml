@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KidsDrawingApp">
+        <!-- TODO (Step 1 : Add screen orientation and make it always portrait)-->
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"

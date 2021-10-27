@@ -3,10 +3,32 @@ package eu.tutorials.kidsdrawingapp
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 
+// TODO (Step 2 : Creating a drawing view with some basic features as creating canvas to draw with required attributes
+//  and providing a default color and size of stroke.)
+
+/**
+ * This class contains the attributes for the main layout of
+ * our application.
+ */
+
+/**
+ * The constructor for ViewForDrawing
+ * This constructor calls the setupDrawing()
+ * method. This constructor is called only
+ * once when the application layout is first
+ * created upon launch.
+ *
+ * @param context
+ * @param attrs
+ */
+
+/**
+ * The reference link to create this class is
+ * https://medium.com/@ssaurel/learn-to-create-a-paint-application-for-android-5b16968063f8
+ */
 class DrawingView(context: Context,attrs:AttributeSet): View(context,attrs) {
     private var mDrawPath: CustomPath? =
         null // An variable of CustomPath inner class to use it further.
@@ -53,7 +75,8 @@ class DrawingView(context: Context,attrs:AttributeSet): View(context,attrs) {
         mDrawPaint?.strokeCap = Paint.Cap.ROUND // This is for stroke Cap
 
         mCanvasPaint = Paint(Paint.DITHER_FLAG) // Paint flag that enables dithering when blitting.
-
+        mBrushSize =
+            20.toFloat()
     }
 
     override fun onSizeChanged(w: Int, h: Int, wprev: Int, hprev: Int) {
@@ -140,28 +163,5 @@ class DrawingView(context: Context,attrs:AttributeSet): View(context,attrs) {
         return true
     }
 
-    /**
-     * This method is called when either the brush or the eraser
-     * sizes are to be changed. This method sets the brush/eraser
-     * sizes to the new values depending on user selection.
-     */
-    fun setSizeForBrush(newSize: Float) {
-        mBrushSize = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, newSize,
-            resources.displayMetrics
-        )
-        mDrawPaint?.strokeWidth = mBrushSize
-    }
-
-    /**
-     * This function is called when the user desires a color change.
-     * This functions sets the color of a store to selected color and able to draw on view using that color.
-     *
-     * @param newColor
-     */
-    fun setColor(newColor: String) {
-        color = Color.parseColor(newColor)
-        mDrawPaint?.color = color
-    }
     internal inner class CustomPath(var color:Int,var brushThickness:Float):Path()
 }
