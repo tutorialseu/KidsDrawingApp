@@ -134,6 +134,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+        <!--TODO(Step 1 - We have added an image button for selecting the image from your phone.)-->
 
         <ImageButton
             android:id="@+id/ib_gallery"
