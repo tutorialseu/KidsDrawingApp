@@ -31,18 +31,10 @@ class MainActivity : AppCompatActivity() {
     private var mImageButtonCurrentPaint: ImageButton? =
         null // A variable for current color is picked from color pallet.
 
-
-
-
-//Todo 2: create an activity result launcher to open an intent
-    val openGalleryLauncher:ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
-    //Todo 3: get the returned result from the lambda and check the resultcode and the data returned
-    if (result.resultCode == RESULT_OK && result.data != null){
-            //process the data
-                //Todo 4 if the data is not null reference the imageView from the layout
-            val imageBackground:ImageView = findViewById(R.id.iv_background)
-        //Todo 5: set the imageuri received
-            imageBackground.setImageURI(result.data?.data)
+ val openGalleryLauncher:ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
+   if (result.resultCode == RESULT_OK && result.data != null){
+           val imageBackground:ImageView = findViewById(R.id.iv_background)
+         imageBackground.setImageURI(result.data?.data)
         }
     }
 
@@ -61,10 +53,7 @@ class MainActivity : AppCompatActivity() {
                         "Permission granted now you can read the storage files.",
                         Toast.LENGTH_LONG
                     ).show()
-                    //perform operation
-                    //Todo 1: create an intent to pick image from external storage
                     val pickIntent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    //Todo 6: using the intent launcher created above launch the pick intent
                     openGalleryLauncher.launch(pickIntent)
                 } else {
             //Displaying another toast if permission is not granted and this time focus on
@@ -111,6 +100,7 @@ class MainActivity : AppCompatActivity() {
             //reference the save button from the layout
         val ibSave:ImageButton = findViewById(R.id.ib_save)
               //set onclick listener
+        // TODO(Step 3 : Adding an click event to save or exporting the image to your phone storage.)
         ibSave.setOnClickListener{
                //check if permission is allowed
             if (isReadStorageAllowed()){
@@ -270,6 +260,7 @@ class MainActivity : AppCompatActivity() {
         return returnedBitmap
     }
 
+    // TODO(Step 2 : A method to save the image.)
     private suspend fun saveBitmapFile(mBitmap: Bitmap?):String{
         var result = ""
         withContext(Dispatchers.IO) {

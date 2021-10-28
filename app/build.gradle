@@ -32,6 +32,7 @@ android {
 }
 
 dependencies {
+    //Todo 1: add the dependency for the lifecycle scope
     implementation "androidx.activity:activity-ktx:1.4.0-alpha01"
 
     implementation 'androidx.core:core-ktx:1.6.0'
