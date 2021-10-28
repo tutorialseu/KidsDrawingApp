@@ -145,15 +145,6 @@
             android:src="@drawable/ic_gallery" />
 
         <ImageButton
-            android:id="@+id/ib_undo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:contentDescription="image"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_undo"
-            android:visibility="visible" />
-
-        <ImageButton
             android:id="@+id/ib_brush"
             android:layout_width="50dp"
             android:layout_height="50dp"
