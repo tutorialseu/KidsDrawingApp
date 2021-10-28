@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!--TODO(Step 1 - Adding Image as Background to the DrawingView)-->
     <FrameLayout
         android:id="@+id/fl_drawing_view_container"
         android:layout_width="0dp"
@@ -33,7 +34,7 @@
             android:layout_height="match_parent"
             android:background="#80FFFFFF" />
     </FrameLayout>
-
+    <!--TODO(Step 2 - We have updated the attribute 'app:layout_constraintTop_toBottomOf' in ll_paint_colors as "@id/fl_drawing_view_container" instead of "@id/drawing_view".)-->
     <LinearLayout
         android:id="@+id/ll_paint_colors"
         android:layout_width="wrap_content"
