@@ -143,7 +143,7 @@
             android:contentDescription="image"
             android:scaleType="fitXY"
             android:src="@drawable/ic_gallery" />
-
+        <!--TODO(Step 1 : Adding an option for undo)-->
         <ImageButton
             android:id="@+id/ib_undo"
             android:layout_width="50dp"

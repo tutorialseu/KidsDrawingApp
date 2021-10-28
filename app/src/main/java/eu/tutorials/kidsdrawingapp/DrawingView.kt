@@ -34,6 +34,7 @@ class DrawingView(context: Context,attrs:AttributeSet): View(context,attrs) {
 
     private val mPaths = ArrayList<CustomPath>() // ArrayList for Paths
 
+    // TODO(Step 2 : A variable for array list of undo paths.)
     private val mUndoPaths = ArrayList<CustomPath>()
 
     init {
@@ -166,6 +167,7 @@ class DrawingView(context: Context,attrs:AttributeSet): View(context,attrs) {
         mDrawPaint!!.color = color
     }
 
+    // TODO(Step 3 : A function to add the paths for undo option.)
     /**
      * This function is called when the user selects the undo
      * command from the application. This function removes the
