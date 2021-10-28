@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private var mImageButtonCurrentPaint: ImageButton? =
         null // A variable for current color is picked from color pallet.
 
-    /** Todo 1: create an ActivityResultLauncher with MultiplePermissions since we are requesting
+    /** Todo 2: create an ActivityResultLauncher with MultiplePermissions since we are requesting
      * both read and write
      */
     val requestPermission: ActivityResultLauncher<Array<String>> =
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             permissions.entries.forEach {
                 val perMissionName = it.key
                 val isGranted = it.value
-                //Todo 2: if permission is granted show a toast and perform operation
+                //Todo 3: if permission is granted show a toast and perform operation
                 if (isGranted ) {
                     Toast.makeText(
                         this@MainActivity,
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                     ).show()
                     //perform operation
                 } else {
-            //Todo 3: Displaying another toast if permission is not granted and this time focus on
+            //Todo 4: Displaying another toast if permission is not granted and this time focus on
             //    Read external storage
                 if (perMissionName == Manifest.permission.READ_EXTERNAL_STORAGE)
                     Toast.makeText(
@@ -68,6 +68,8 @@ class MainActivity : AppCompatActivity() {
             showBrushSizeChooserDialog()
         }
         val ibGallery: ImageButton = findViewById(R.id.ib_gallery)
+        //TODO(Step 10 : Adding an click event to image button for selecting the image from gallery.)
+
         ibGallery.setOnClickListener {
             requestStoragePermission()
         }
@@ -127,21 +129,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//Todo 4: create a method to requestStorage permission
+//Todo 5: create a method to requestStorage permission
     private fun requestStoragePermission(){
-    //Todo 5: Check if the permission was denied and show rationale
+    //Todo 6: Check if the permission was denied and show rationale
         if (
             ActivityCompat.shouldShowRequestPermissionRationale(
                 this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)
         ){
-            //Todo 8: call the rationale dialog to tell the user why they need to allow permission request
+            //Todo 9: call the rationale dialog to tell the user why they need to allow permission request
             showRationaleDialog("Kids Drawing App","Kids Drawing App " +
                     "needs to Access Your External Storage")
         }
         else {
             // You can directly ask for the permission.
-            // Todo 6: if it has not been denied then request for permission
+            // Todo 7: if it has not been denied then request for permission
                 //  The registered ActivityResultCallback gets the result of this request.
             requestPermission.launch(
                 arrayOf(
@@ -152,7 +154,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-    /** Todo 7: create rationale dialog
+    /** Todo 8: create rationale dialog
      * Shows rationale dialog for displaying why the app needs permission
      * Only shown if the user has denied the permission request previously
      */
