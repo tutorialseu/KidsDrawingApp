@@ -33,15 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     var customProgressDialog: Dialog? = null
 
-
-//Todo 2: create an activity result launcher to open an intent
-    val openGalleryLauncher:ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
-    //Todo 3: get the returned result from the lambda and check the resultcode and the data returned
+  val openGalleryLauncher:ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
     if (result.resultCode == RESULT_OK && result.data != null){
-            //process the data
-                //Todo 4 if the data is not null reference the imageView from the layout
             val imageBackground:ImageView = findViewById(R.id.iv_background)
-        //Todo 5: set the imageuri received
             imageBackground.setImageURI(result.data?.data)
         }
     }
@@ -61,10 +55,7 @@ class MainActivity : AppCompatActivity() {
                         "Permission granted now you can read the storage files.",
                         Toast.LENGTH_LONG
                     ).show()
-                    //perform operation
-                    //Todo 1: create an intent to pick image from external storage
-                    val pickIntent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    //Todo 6: using the intent launcher created above launch the pick intent
+                   val pickIntent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                     openGalleryLauncher.launch(pickIntent)
                 } else {
             //Displaying another toast if permission is not granted and this time focus on
@@ -340,9 +331,8 @@ class MainActivity : AppCompatActivity() {
         return result
     }
 
+    // TODO (Step 1 - Sharing the downloaded Image file)
     private fun shareImage(result:String){
-        // TODO (Step 1 - Sharing the downloaded Image file)
-        // START
 
         /*MediaScannerConnection provides a way for applications to pass a
         newly created or downloaded media file to the media scanner service.
