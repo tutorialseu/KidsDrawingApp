@@ -153,6 +153,7 @@ class DrawingView(context: Context,attrs:AttributeSet): View(context,attrs) {
         mDrawPaint?.strokeWidth = mBrushSize
     }
 
+    // TODO(Step 1 : Creating a function to set the selected color to DrawingView on click of colors in color pallet.)
     /**
      * This function is called when the user desires a color change.
      * This functions sets the color of a store to selected color and able to draw on view using that color.

@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         brushDialog.show()
     }
 
+    // TODO(Step 2 - A function for color selection.)
     /**
      * Method is called when color is clicked from pallet_normal.
      *

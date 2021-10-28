@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:background="#80FFFFFF" />
     </FrameLayout>
-
+    <!--TODO(Step 3 - We have added a onclick method as 'paintClicked' for all the image buttons which is further defined in MainActivity for selection from color pallet.)-->
     <LinearLayout
         android:id="@+id/ll_paint_colors"
         android:layout_width="wrap_content"
@@ -134,16 +134,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageButton
-            android:id="@+id/ib_gallery"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="5dp"
-            android:contentDescription="image"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_gallery" />
-
         <ImageButton
             android:id="@+id/ib_brush"
             android:layout_width="50dp"
