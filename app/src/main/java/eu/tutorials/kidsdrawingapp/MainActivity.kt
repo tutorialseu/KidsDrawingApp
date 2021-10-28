@@ -30,17 +30,13 @@ class MainActivity : AppCompatActivity() {
     private var drawingView: DrawingView? = null
     private var mImageButtonCurrentPaint: ImageButton? = null // A variable for current color is picked from color pallet.
 
+    //Todo 1: create a variable for the dialog
     var customProgressDialog: Dialog? = null
 
-
-//Todo 2: create an activity result launcher to open an intent
-    val openGalleryLauncher:ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
-    //Todo 3: get the returned result from the lambda and check the resultcode and the data returned
+ val openGalleryLauncher:ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
     if (result.resultCode == RESULT_OK && result.data != null){
-            //process the data
-                //Todo 4 if the data is not null reference the imageView from the layout
             val imageBackground:ImageView = findViewById(R.id.iv_background)
-        //Todo 5: set the imageuri received
+
             imageBackground.setImageURI(result.data?.data)
         }
     }
@@ -60,11 +56,8 @@ class MainActivity : AppCompatActivity() {
                         "Permission granted now you can read the storage files.",
                         Toast.LENGTH_LONG
                     ).show()
-                    //perform operation
-                    //Todo 1: create an intent to pick image from external storage
-                    val pickIntent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    //Todo 6: using the intent launcher created above launch the pick intent
-                    openGalleryLauncher.launch(pickIntent)
+                   val pickIntent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                   openGalleryLauncher.launch(pickIntent)
                 } else {
             //Displaying another toast if permission is not granted and this time focus on
             //    Read external storage
@@ -113,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         ibSave.setOnClickListener{
                //check if permission is allowed
             if (isReadStorageAllowed()){
+                //Todo 4: show dialog before launching coroutine
                 showProgressDialog()
              //launch a coroutine block
                 lifecycleScope.launch{
@@ -314,6 +308,7 @@ class MainActivity : AppCompatActivity() {
                     result = f.absolutePath // The file absolute path is return as a result.
                    //We switch from io to ui thread to show a toast
                     runOnUiThread {
+                        ///Todo 5: cancel dialog after the file is saved
                         cancelProgressDialog()
                         if (!result.isEmpty()) {
                             Toast.makeText(
@@ -338,7 +333,7 @@ class MainActivity : AppCompatActivity() {
         return result
     }
 
-    /**
+    /** Todo 2:create function to show the dialog
      * Method is used to show the Custom Progress Dialog.
      */
     private fun showProgressDialog() {
@@ -352,7 +347,7 @@ class MainActivity : AppCompatActivity() {
         customProgressDialog?.show()
     }
 
-    /**
+    /** Todo 3: create function to cancel dialog
      * This function is used to dismiss the progress dialog if it is visible to user.
      */
     private fun cancelProgressDialog() {
