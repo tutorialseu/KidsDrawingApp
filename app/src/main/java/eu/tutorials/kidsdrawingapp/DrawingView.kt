@@ -54,8 +54,6 @@ class DrawingView(context: Context,attrs:AttributeSet): View(context,attrs) {
      */
     private var canvas: Canvas? = null
 
-    private val mPaths = ArrayList<CustomPath>() // ArrayList for Paths
-
     init {
         setUpDrawing()
     }
@@ -109,13 +107,6 @@ class DrawingView(context: Context,attrs:AttributeSet): View(context,attrs) {
             canvas.drawBitmap(it, 0f,   0f, mCanvasPaint)
         }
 
-
-        for (p in mPaths) {
-            mDrawPaint?.strokeWidth = p.brushThickness
-            mDrawPaint?.color = p.color
-            canvas.drawPath(p, mDrawPaint!!)
-        }
-
         if (!mDrawPath!!.isEmpty) {
             mDrawPaint?.strokeWidth = mDrawPath!!.brushThickness
             mDrawPaint?.color = mDrawPath!!.color
@@ -151,9 +142,6 @@ class DrawingView(context: Context,attrs:AttributeSet): View(context,attrs) {
             }
 
             MotionEvent.ACTION_UP -> {
-
-                mPaths.add(mDrawPath!!) //Add when to stroke is drawn to canvas and added in the path arraylist
-
                 mDrawPath = CustomPath(color, mBrushSize)
             }
             else -> return false
