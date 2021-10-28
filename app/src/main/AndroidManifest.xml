@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
 
+        <!--TODO(Step 3 : Adding an provider path which we have added in xml folder as path.xml)-->
         <!--SOURCE : https://developer.android.com/guide/topics/manifest/provider-element-->
         <provider
             android:name="androidx.core.content.FileProvider"

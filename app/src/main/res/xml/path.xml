@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--TODO(Step 2 : Adding an path in path.xml file in xml resource folder to save or exporting the image to your phone storage)-->
+<!--START-->
 <paths>
     <external-path
         name="captured"

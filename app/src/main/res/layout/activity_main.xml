@@ -161,7 +161,7 @@
             android:contentDescription="image"
             android:scaleType="fitXY"
             android:src="@drawable/ic_brush" />
-
+<!--Todo 1 adding save button-->
         <ImageButton
             android:id="@+id/ib_save"
             android:layout_width="50dp"

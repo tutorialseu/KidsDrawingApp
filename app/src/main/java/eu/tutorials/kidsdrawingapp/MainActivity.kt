@@ -26,24 +26,15 @@ class MainActivity : AppCompatActivity() {
     private var mImageButtonCurrentPaint: ImageButton? =
         null // A variable for current color is picked from color pallet.
 
-
-
-
-//Todo 2: create an activity result launcher to open an intent
     val openGalleryLauncher:ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
-    //Todo 3: get the returned result from the lambda and check the resultcode and the data returned
-    if (result.resultCode == RESULT_OK && result.data != null){
+
+        if (result.resultCode == RESULT_OK && result.data != null){
             //process the data
-                //Todo 4 if the data is not null reference the imageView from the layout
-            val imageBackground:ImageView = findViewById(R.id.iv_background)
-        //Todo 5: set the imageuri received
-            imageBackground.setImageURI(result.data?.data)
+              val imageBackground:ImageView = findViewById(R.id.iv_background)
+         imageBackground.setImageURI(result.data?.data)
         }
     }
 
-    /** create an ActivityResultLauncher with MultiplePermissions since we are requesting
-     * both read and write
-     */
     val requestPermission: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             permissions.entries.forEach {
@@ -56,10 +47,7 @@ class MainActivity : AppCompatActivity() {
                         "Permission granted now you can read the storage files.",
                         Toast.LENGTH_LONG
                     ).show()
-                    //perform operation
-                    //Todo 1: create an intent to pick image from external storage
                     val pickIntent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    //Todo 6: using the intent launcher created above launch the pick intent
                     openGalleryLauncher.launch(pickIntent)
                 } else {
             //Displaying another toast if permission is not granted and this time focus on
@@ -201,6 +189,7 @@ class MainActivity : AppCompatActivity() {
         builder.create().show()
     }
 
+    // TODO(Step 4 : Getting and bitmap Exporting the image to your phone storage.)
     /**
      * Create bitmap from view and returns it
      */
